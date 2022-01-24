@@ -3,17 +3,17 @@ form {
 	justify-content: center;
 	flex-direction: column;
 	margin: auto;
-	text-align: left
+	text-align: left;
 }
 
 button {
 	margin-top: 10px;
 	padding: 5px;
-	color: green
+	color: green;
 }
 
 h6 {
-	margin-bottom: 5px
+	margin-bottom: 5px;
 }
 
 p {
