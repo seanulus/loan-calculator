@@ -34,19 +34,27 @@ export default function Landing() {
 			error: ''
 		}))
 
-		if(parseInt(state.price, 10) > parseInt(state.income, 10) / 5 || parseInt(state.credit, 10) < 600) {
-			// In lieu of an actual fetch call, I've opted to return rejected or resolved promise to simulate the async nature of a call to the server.
-			// I would refactor this section in order to better handle a server call using fetch.
-			await Promise.reject('Based on the provided information, you are not currently qualified for this loan.')
-			// Users should not be able to navigate back to the loan application screen from here
-			// using the replace attribute. 
-			navigate('/disqualified', { replace: true });
-		} else if(parseInt(state.price) > 1000000) {
-			await Promise.reject('Bad Request')
+		if(parseInt(state.price) > 1000000) {
 			updateState(prevState => ({
 				...prevState,
 				error: 'We cannot accommodate pricing over $1,000,000. Please lower the price amount.'
 			}))
+			await Promise.reject('Bad Request')
+
+		} else if(parseInt(state.price, 10) > parseInt(state.income, 10) / 5 || parseInt(state.credit, 10) < 600) {
+			// In lieu of an actual fetch call, I've opted to return rejected or resolved promise to simulate the async nature of a call to the server.
+			// I would refactor this section in order to better handle a server call using fetch.
+			await Promise.reject('Based on the provided information, you are not currently qualified for this loan.')
+			.then(() => {
+				// This shouldn't get called
+				console.log('then')
+			}, (err) => {
+				// This should provide the stack trace and navigate should happen afterward
+				console.error(err)
+			})
+			// Users should not be able to navigate back to the loan application screen from here
+			// using the replace attribute. 
+			navigate('/disqualified', { replace: true });
 		} else {
 			await Promise.resolve(state)
 			navigate('/signup')
