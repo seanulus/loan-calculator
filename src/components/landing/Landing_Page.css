@@ -2,7 +2,8 @@ form {
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	width: 30rem
+	margin: auto;
+	text-align: left
 }
 
 button {
@@ -11,8 +12,16 @@ button {
 	color: green
 }
 
+h6 {
+	margin-bottom: 5px
+}
+
+p {
+	font-size: 10px;
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
 .landing {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
+	text-align: center;
 }
