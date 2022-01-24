@@ -1,0 +1,18 @@
+form {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	width: 30rem
+}
+
+button {
+	margin-top: 10px;
+	padding: 5px;
+	color: green
+}
+
+.landing {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
