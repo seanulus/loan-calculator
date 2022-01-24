@@ -23,6 +23,7 @@ export default function Input(props: InputProps) {
 				min={props.min}
 				max={props.max}
 				onChange={props.onChange}
+				required
 			/>
 		</>
 	)

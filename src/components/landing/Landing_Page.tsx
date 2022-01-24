@@ -5,11 +5,12 @@ import './Landing_Page.css'
 export default function Landing() {
 
 	const [state, updateState] = useState({
-		price: null,
+		price: '',
 		make: null,
 		model: null,
-		income: null,
-		credit: null
+		income: '',
+		credit: '',
+		error: ''
 	})
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +24,24 @@ export default function Landing() {
 	const validateAndSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault()
 
-		console.log(state);
+		updateState(prevState => ({
+			...prevState,
+			error: ''
+		}))
+
+		if(parseInt(state.price, 10) > parseInt(state.income, 10) / 5 || parseInt(state.credit, 10) < 600) {
+			Promise.reject('Based on the provided information, you are not currently qualified for this loan.')
+		} else if(parseInt(state.price) > 1000000) {
+			Promise.reject('Bad Request')
+			updateState(prevState => ({
+				...prevState,
+				error: 'We cannot accommodate pricing over $1,000,000. Please lower the price amount.'
+			}))
+		} else {
+			Promise.resolve(state)
+		}
+
+		// console.log(state);
 	}
 
 	return(
@@ -68,8 +86,8 @@ export default function Landing() {
 					name='income' 
 					type='number'
 					id='income'
-					min='0'
-					max='1000000'
+					min=''
+					max=''
 					onChange={(e) => onChange(e)}
 				/>
 				<Input 
@@ -82,6 +100,7 @@ export default function Landing() {
 					max='850'
 					onChange={(e) => onChange(e)}
 				/>
+				<p className='error-text'>{state.error}</p>
 				<button type='submit'>Submit</button>
 			</form>
 		</div>
